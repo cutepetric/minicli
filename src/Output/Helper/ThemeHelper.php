@@ -2,11 +2,12 @@
 
 namespace Minicli\Output\Helper;
 
+use Minicli\Output\OutputFilterInterface;
 use Minicli\Output\Filter\ColorOutputFilter;
 
 class ThemeHelper
 {
-    /** @var array */
+    /** @var string */
     protected $theme = '';
 
     /**
