@@ -70,86 +70,97 @@ class OutputHandler implements ServiceInterface
      * Prints a content using configured filters
      * @param string $content
      * @param string $style
+     * @return self
      */
-    public function out($content, $style = "default"): void
+    public function out($content, $style = "default")
     {
         $this->printer_adapter->out($this->filterOutput($content, $style));
+        return $this;
     }
 
     /**
      * Prints content without formatting or styling
      * @param string $content
+     * @return self
      */
     public function rawOutput($content)
     {
         $this->printer_adapter->out($content);
+        return $this;
     }
 
     /**
      * Prints a new line.
+     * @return self
      */
-    public function newline(): void
+    public function newline()
     {
         $this->rawOutput("\n");
+        return $this;
     }
 
     /**
      * Displays content using the "default" style
      * @param string $content
      * @param bool $alt Whether or not to use the inverted style ("alt")
-     * @return void
+     * @return self
      */
-    public function display($content, $alt = false): void
+    public function display($content, $alt = false)
     {
         $this->newline();
         $this->out($content, $alt ? "alt" : "default");
         $this->newline();
+        return $this;
     }
 
     /**
      * Prints content using the "error" style
      * @param string $content
      * @param bool $alt Whether or not to use the inverted style ("error_alt")
-     * @return void
+     * @return self
      */
-    public function error($content, $alt = false): void
+    public function error($content, $alt = false)
     {
         $this->newline();
         $this->out($content, $alt ? "error_alt" : "error");
         $this->newline();
+        return $this;
     }
 
     /**
      * Prints content using the "info" style
      * @param string $content
      * @param bool $alt Whether or not to use the inverted style ("info_alt")
-     * @return void
+     * @return self
      */
-    public function info($content, $alt = false): void
+    public function info($content, $alt = false)
     {
         $this->newline();
         $this->out($content, $alt ? "info_alt" : "info");
         $this->newline();
+        return $this;
     }
 
     /**
      * Prints content using the "success" style
      * @param string $content The string to print
      * @param bool $alt Whether or not to use the inverted style ("success_alt")
-     * @return void
+     * @return self
      */
-    public function success($content, $alt = false): void
+    public function success($content, $alt = false)
     {
         $this->newline();
         $this->out($content, $alt ? "success_alt" : "success");
         $this->newline();
+        return $this;
     }
 
     /**
      * Shortcut method to print tables using the TableHelper
      * @param array $table An array containing all table rows. Each row must be an array with the individual cells.
+     * @return self
      */
-    public function printTable(array $table): void
+    public function printTable(array $table)
     {
         $helper = new TableHelper($table);
 
@@ -157,5 +168,6 @@ class OutputHandler implements ServiceInterface
         $this->newline();
         $this->rawOutput($helper->getFormattedTable($filter));
         $this->newline();
+        return $this;
     }
 }
